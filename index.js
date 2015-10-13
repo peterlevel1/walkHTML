@@ -89,7 +89,7 @@ var walkHTML = function (str, callback) {
 	} while (depth > 0);
 
 	if (docDef) {
-		stack.unshift({tag : true, docDef : true, text : docDef});
+		stack.docDef = {tag : true, docDef : true, text : docDef};
 	}
 
 	callback(null, stack);
