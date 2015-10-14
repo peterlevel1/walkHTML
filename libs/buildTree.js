@@ -8,7 +8,7 @@
 })(this, function (htmlToArray) {
 	var rtag = /<[^>]+>/;
 	var rtagName = /(\/)?([\w]+)/;
-	var singleTags = 'link br hr meta input img'.split(' ');
+	var singleTags = 'link br hr meta input img base'.split(' ');
 	var isSingle = function (tag, tagName) {
 		return tag[tag.length - 2] === '/' ||
 			( (tagName ||
@@ -50,7 +50,8 @@
 				nodeType : 1,
 				parentNode : null,
 				children : [],
-				parentIndex : index > 0 && parentIndex
+				parentIndex : index > 0 && parentIndex,
+				tagString : tag
 			};
 
 			var single = isSingle(tag, tagName);
@@ -67,7 +68,8 @@
 				tagName : tagName,
 				index : index,
 				parentIndex : node.parentIndex,
-				attributes : !isEnd && makeAttributes(tag)
+				attributes : !isEnd && makeAttributes(tag),
+				tagString : tag
 			});
 			if (!isEnd) {
 				parentIndex = index;
@@ -84,13 +86,14 @@
 			node.istackStart = startTag.index;
 			node.textContent = stack.slice(node.istackStart + 1, node.istackEnd).join('');
 			node.parentIndex = startTag.parentIndex;
+			node.tagString = startTag.tagString + '{{ninja}}' + node.tagString;
 
 			map[node.istackStart] = node;
 			parentIndex = startTag.parentIndex;
 
 			return node;
 		})
-		.reduce(function (memo, val, index) {
+		.reduce(function (memo, val) {
 			if (val) {
 				memo.push(val);
 			}
@@ -107,7 +110,8 @@
 			return node;
 		});
 
-		tree.docDef = stack.docDef;
+		tree.stack = stack;
+		tree.indexMap = map;
 
 		return tree;
 	}
