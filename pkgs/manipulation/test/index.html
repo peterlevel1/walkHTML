@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		/*.hidden { display : none; }*/
+		.aaa {height : 100px;}
+	</style>
+	<script type="text/javascript" src="../../../ninja_core.js"></script>
+	<!-- <script type="text/javascript" type="text/javascript" src="./alert.js"></script> -->
+
+</head>
+<body>
+	<div>
+		<ul>
+			<li class="active"></li>
+			<li class="hidden aaa">aaaaaaaaaaaaaaaaa</li>
+			<li></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	Ninja.setCwd(Ninja.path.dirname(window.location.toString()));
+		// require(['./css_moves', '../assert/index']);
+		require([
+			'../../parts/parts_css',
+			'../assert/index',
+			'../simple_test/index',
+			'./mnp_test1'
+		]);
+
+		require.ready(function (_) {
+
+			var test = _.module('simple_test');
+			var assert = _.module('assert');
+			var mnp = _.module('mnp_test1');
+
+
+			var Unit = test.Unit;
+			var Module = test.Module;
+
+			console.log(mnp);
+
+			// var arr1 = [
+			// 	'<ul>',
+			// 	'<li>madesdfsdfsdfsdf</li>'
+			// ];
+			var arr2 = [
+				'<td><div>hello</div></td>'
+			];
+			var arr3 = [
+				'<script src="./alert.js"><\/script>'
+			];
+			// var arr4 = [
+			// 	'<script type="text/javascript" src="./alert.js">',
+			// ];
+			// var arr5 = [
+			// 	'<ul>',
+			// 	'<li>made</li>'
+			// ];
+			// var arr6 = [
+			// 	'<ul>',
+			// 	'<li>made</li>'
+			// ];
+			var scriptsArray = [];
+			var selection = [];
+			var ignoredArray = [];
+
+			// elems, context, scriptsArray, selection, ignoredArray
+			// var ret1 = mnp.buildFragment(arr1, document, scriptsArray, selection, ignoredArray);
+			var ret2 = mnp.buildFragment(arr2, document, scriptsArray, selection, ignoredArray);
+			var ret3 = mnp.buildFragment(arr3, document, scriptsArray, selection, ignoredArray);
+			// var ret4 = mnp.buildFragment(arr4, document, scriptsArray, selection, ignoredArray);
+			// var ret5 = mnp.buildFragment(arr5, document, [], [], []);
+			// var ret6 = mnp.buildFragment(arr6, document, [], [], []);
+
+			// console.log(ret1);
+			console.log(ret2);
+			console.log(ret3);
+			 _.qsa('body').appendChild(ret2);
+			 _.qsa('head').appendChild(ret3);
+			// console.log(ret4);
+			console.log(scriptsArray, selection, ignoredArray);
+			// console.log(ret5);
+			// console.log(ret6);
+			// console.log(ret);
+			// console.log(ret);
+		})
+	</script>
+</body>
+</html>

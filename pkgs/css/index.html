@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<style type="text/css">
+		/*.hidden { display : none; }*/
+		.aaa {height : 100px;}
+	</style>
+	<script type="text/javascript" src="../../ninja_core.js"></script>
+	<script type="text/javascript">
+		// require(['./css_moves', '../assert/index']);
+		require([
+			'../../parts/parts_css',
+			'../assert/index',
+			'../simple_test/index'
+		]);
+
+		require.ready(function (_) {
+
+			var test = _.module('simple_test');
+			var assert = _.module('assert');
+			console.log(test);
+
+			var Unit = test.Unit;
+			var Module = test.Module;
+
+			new Unit('aaa', {
+				'iii' : function (done) {
+
+					setTimeout(function () {
+						assert.ok(false, 'aaaa wrong !');
+						assert.ok(false, 'bbbb wrong !');
+						assert.ok(false, 'cccc wrong !');
+						assert.ok(false, 'dddd wrong !');
+						assert.ok(false, 'eeee wrong !');
+						assert.ok(false, 'ffff wrong !');
+
+						done(assert.collect());
+						// var a = assert.ok(false, 'iii is true');
+					}, 1000);
+				},
+				'uuuuuuuuuuu' : function (done) {
+					assert.ok(false, 'uuuuuuuuuuu-aaaa wrong !');
+					assert.ok(false, 'uuuuuuuuuuu-bbbb wrong !');
+					assert.ok(false, 'uuuuuuuuuuu-cccc wrong !');
+					assert.ok(false, 'uuuuuuuuuuu-dddd wrong !');
+					assert.ok(false, 'uuuuuuuuuuu-eeee wrong !');
+					assert.ok(false, 'uuuuuuuuuuu-ffff wrong !');
+
+					done(assert.collect());
+						// var a = assert.ok(false, 'iii is true');
+				},
+				'qqqqqqqq' : function () {
+					assert.ok(false, 'qqqqqqqq-aaaa wrong !');
+					assert.ok(false, 'qqqqqqqq-bbbb wrong !');
+					assert.ok(false, 'qqqqqqqq-cccc wrong !');
+					assert.ok(false, 'qqqqqqqq-dddd wrong !');
+					assert.ok(false, 'qqqqqqqq-eeee wrong !');
+					assert.ok(false, 'qqqqqqqq-ffff wrong !');
+
+					return assert.collect();
+						// var a = assert.ok(false, 'iii is true');
+				}
+			})
+			.start(function () {
+				console.log('===========done !=========');
+			});
+			// console.log(_.fn);
+			// var hidden = _('.hidden');
+			// hidden.hide();
+			// hidden.show();
+			// hidden.hide();
+			// console.log(window.Buffer);
+			// var assert = _.module('assert');
+			// assert.ok(true, 'ok: true');
+			// // assert.ok(false, 'ok: false');
+			// assert.deepEqual({ x : 1 }, { y : 1 }, 'aaaaaa');
+			// console.log(Error.captureStackTrace);
+			// var A = function () {
+			// 	this.a = 1;
+			// };
+
+			// A.prototype.say = function () {
+			// 	console.log('A: say');
+			// };
+			// A.prototype.aa = 11;
+
+			// var B = function () {
+			// 	this.b = 2;
+			// };
+
+			// _.inherits(B, A);
+
+			// var b = new B();
+			// b.say();
+			// console.log(b.a);
+			// console.log(b.b);
+			// console.log(b.aa);
+			// hidden.show();
+			// console.log(hidden);
+			// hidden.show();
+		})
+	</script>
+</head>
+<body>
+	<div>
+		<ul>
+			<li class="active"></li>
+			<li class="hidden aaa">aaaaaaaaaaaaaaaaa</li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+</html>

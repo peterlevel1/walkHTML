@@ -4,12 +4,12 @@ var getContent = function (filename, callback) {
 };
 var buildTree = require('../libs/buildTree.js');
 
-getContent('./2.html', function (err, str) {
+getContent('./3.html', function (err, str) {
 	if (err) {
 		throw err;
 	}
 
 	var ret = buildTree(str);
-	console.log(ret[0].children[0].children);
+	console.log(ret.renderStack);
 
 });

@@ -15,7 +15,7 @@
 				(tagName = (rtagName.exec(tag) || [])[2]) ) &&
 				singleTags.indexOf(tagName) >= 0 );
 	};
-	var rattr = / +([\w-]+)(?:=\"([^\"]+)\"|)?/g;
+	var rattr = / +([\w-]+)(?:=\"([^\"]+)\"|=\'([^\']+)\'|)?/g;
 	var makeAttributes = function (str) {
 		var one;
 		var node = {};
@@ -24,16 +24,25 @@
 		}
 		return node;
 	};
+	var isTag = function (tag) {
+		return rtag.test(tag);
+	};
+	var matchTag = function (tag) {
+		return isTag(tag) && tag.match(rtagName);
+	};
+	var isTagEnd = function (tag) {
+		return (matchTag(tag) || [])[1];
+	};
 
 	function buildTree(str) {
 		var stack = htmlToArray(str);
 		var tracker = [];
-		var parentIndex = null;
+		var parentIndex = false;
 		var map = {};
 
 		//the tree
-		var tree = stack.map(function (tag, index) {
-			if (!rtag.test(tag)) return false;
+		var tree = stack.reduce(function (memo, tag, index) {
+			if (!rtag.test(tag)) return memo;
 
 			var match = tag.match(rtagName) || [];
 
@@ -50,7 +59,7 @@
 				nodeType : 1,
 				parentNode : null,
 				children : [],
-				parentIndex : index > 0 && parentIndex,
+				parentIndex : parentIndex,
 				tagString : tag
 			};
 
@@ -60,20 +69,21 @@
 				node.istackStart = node.istackEnd;
 				node.attributes = makeAttributes(tag);
 				node.children = null;
-				return node;
+				memo.push(node);
+				return memo;
 			}
 
 			var isEnd = !!match[1];
 			tracker.push({
 				tagName : tagName,
 				index : index,
-				parentIndex : node.parentIndex,
+				parentIndex : parentIndex,
 				attributes : !isEnd && makeAttributes(tag),
 				tagString : tag
 			});
 			if (!isEnd) {
 				parentIndex = index;
-				return false;
+				return memo;
 			}
 
 			var endTag = tracker.pop();
@@ -85,18 +95,13 @@
 			node.attributes = startTag.attributes;
 			node.istackStart = startTag.index;
 			node.textContent = stack.slice(node.istackStart + 1, node.istackEnd).join('');
-			node.parentIndex = startTag.parentIndex;
+			node.parentIndex = node.istackStart === 0 ? false : startTag.parentIndex || 0;
 			node.tagString = startTag.tagString + '{{ninja}}' + node.tagString;
 
 			map[node.istackStart] = node;
 			parentIndex = startTag.parentIndex;
 
-			return node;
-		})
-		.reduce(function (memo, val) {
-			if (val) {
-				memo.push(val);
-			}
+			memo.push(node);
 			return memo;
 		}, [])
 		.sort(function (a, b) {
@@ -112,6 +117,14 @@
 
 		tree.stack = stack;
 		tree.indexMap = map;
+		tree.renderStack = stack.slice();
+		tree.header = ((stack.helper.docDef || '') +
+			(stack.helper.otherXmlDef || ['']).join('')).trim();
+		tree.isSingle = isSingle;
+		tree.isTag = isTag;
+		tree.matchTag = matchTag;
+		tree.isTagEnd = isTagEnd;
+		tree.makeAttributes = makeAttributes;
 
 		return tree;
 	}

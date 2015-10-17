@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		/*.hidden { display : none; }*/
+		.aaa {height : 100px;}
+	</style>
+	<script type="text/javascript" src="../../ninja_core.js"></script>
+	<!-- <script type="text/javascript" type="text/javascript" src="./alert.js"></script> -->
+
+</head>
+<body>
+	<div>
+		<ul>
+			<li class="active"></li>
+			<li class="hidden aaa">aaaaaaaaaaaaaaaaa</li>
+			<li></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		// require(['./css_moves', '../assert/index']);
+		require([
+			'./m1'
+		]);
+
+		require.ready(function (_) {
+			var m1 = _.module('m1');
+
+			// console.log(m1);
+			var str_tr_td = '<tr><td>tr->td->haha</td></tr>';
+			var f1 = m1(str_tr_td);
+			console.log(f1);
+
+			var str_text = 'hello world';
+			var f2 = m1(str_text);
+			console.log(f2);
+
+			// var body = document.body;
+			// console.time('dom append: 1000000 times');
+			// var index = 1000000;
+			// while (index--) {
+			// 	body.appendChild(document.createElement('div'));
+			// }
+			// console.timeEnd('dom append: 1000000 times');
+
+			// var fragment = document.createDocumentFragment();
+			// console.time('dom append: 1000000 times');
+			// var index = 1000000;
+			// while (index--) {
+			// 	fragment.appendChild(document.createElement('div'));
+			// }
+			// console.timeEnd('dom append: 1000000 times');
+
+		})
+	</script>
+</body>
+</html>

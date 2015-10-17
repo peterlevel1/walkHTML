@@ -1,5 +1,8 @@
-<header nt-app="ninja-1" async>
-	<div class="nvbt iback" onclick="back(true);">aaaaaa</div>
+<header nt-master="ninja-1" async nt-cmd="hahaha">
+	<div nt-cmd="heihei">
+		{{ filter(o.x) | sortBy("name") }}
+		<li nt-move="repeat(o.y) | filter('name')"></li>
+	</div>
 	<div class="nvtt">
 		关于
 		<ul id="ul-1" heihei>
@@ -7,5 +10,5 @@
 			<li>oooooo</li>
 		</ul>
 	</div>
-	<div class="div-1">bbbbbbbbbb</div>
+	<div class="div-1" nt-cmd="ppppppp"><div>bbbbbbbbbb</div></div>
 </header>

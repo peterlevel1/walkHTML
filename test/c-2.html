@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../ninja_core.js"></script>
+	<script type="text/javascript" src="c-2.js"></script>
+</head>
+<body>
+	<div nt-master="ninja-1">
+		<div nt-move="--data obj">
+			=== data-1 : {{ --ioI prop }}
+		</div>
+		<div nt-move="--repeat arr v --data obj">
+			=== repeat-1 : {{ --ioI v.x --hello }}
+			<li>
+				=== repeat-2 : {{ --ioI prop }}
+				<ul>
+					<li>
+						=== repeat-3 : {{ --ioI v.y }}
+					</li>
+					<li>
+						=== repeat-3 : {{ --ioI prop }}
+					</li>
+					<li>
+						=== repeat-3 : {{ --ioI v.y }}
+					</li>
+					<li>
+						=== repeat-3 : {{ --ioI prop }}
+					</li>
+				</ul>
+			</li>
+		</div>
+		<img src="">
+	</div>
+</body>
+</html>

@@ -10,7 +10,6 @@ getContent('./xml-1.xml', function (err, str) {
 		throw err;
 	}
 
-	str = str.replace(/\'/g, '"');
 	var tree = buildTree(str);
 	console.log(tree.indexMap[0]);
 	// console.log(tree);
