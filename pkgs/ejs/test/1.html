@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="../ejs_fe.js"></script>
+</head>
+<body>
+	<div id="div1"></div>
+	<script type="text/javascript">
+		var div = document.getElementById('div1');
+		var html = '<div <%-item.attr%> ><%=item.name%></div>';
+		var str = ejs.render(html, {
+			item : {
+				name : 'aaaa',
+				attr : 'class="div-class-1"'
+			}
+		});
+		console.log(str);
+		var fn = ejs.compile(html);
+		var str2 = fn({
+			item : {
+				name : 'bbb',
+				attr : 'class="div-class-2"'
+			}
+		});
+		console.log(str2);
+	</script>
+</body>
+</html>

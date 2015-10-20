@@ -1942,7 +1942,6 @@ _.extend(require, {
 	require.setReady(require.expando, false);
 
 	if (isFE) {
-
 		(function () {
 			var head = document.querySelector('head');
 			var	scripts = head.querySelectorAll('script');
@@ -1990,19 +1989,6 @@ _.extend(require, {
 				.setAttribute('src', appUrl);
 		})();
 	}
-	else {
-		require.config({
-			alias : {
-				ninja     : path.join(__dirname, './ninja.js'),
-				vars      : path.join(__dirname, './deps/vars.js'),
-				support   : path.join(__dirname, './deps/support.js'),
-				data_priv : path.join(__dirname, './deps/data_priv.js'),
-				data_user : path.join(__dirname, './deps/data_user.js')
-			}
-		});
-	}
-//	console.log(_.cwd());
-//	console.log(window.location);
 	define.amd = {};
 	global.define = define;
 	global.require = require;

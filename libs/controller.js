@@ -167,6 +167,7 @@ Controller.walkEvents = {
     if (cmd.fresh) {
       cmd.tree = buildTree(cmd.readyRender.join(''));
       cmd.renderStack = cmd.tree.renderStack.slice();
+      //-------------
       cmd.prevCompile = null;
     }
     // console.log(cmd.tree);
@@ -253,7 +254,7 @@ Controller.prototype.walk = function () {
     renderStack = this.renderStack.slice(), self = this,
     walkEvents = this.walkEvents;
 
-  walkEvents.start(self, renderStack);
+  walkEvents.start && walkEvents.start(self, renderStack);
 
   //this step could be transferred into async mode
   while (++i < len) {
@@ -262,24 +263,24 @@ Controller.prototype.walk = function () {
     if (i % 2 === 0) {
       //tagEnd
       if (tree.isTagEnd(one)) {
-        walkEvents.tagEnd(self, [one, i]);
+        walkEvents.tagEnd && walkEvents.tagEnd(self, [one, i]);
       }
       //single
       else if (tree.isSingle(one)) {
-        walkEvents.single(self, [one, i, tree.indexMap[i]]);
+        walkEvents.single && walkEvents.single(self, [one, i, tree.indexMap[i]]);
       }
       //tagStart
       else {
-        walkEvents.tagStart(self, [one, i, tree.indexMap[i]]);
+        walkEvents.tagStart && walkEvents.tagStart(self, [one, i, tree.indexMap[i]]);
       }
     }
     //text
     else {
-      walkEvents.text(self, [one, i]);
+      walkEvents.text && walkEvents.text(self, [one, i]);
     }
   }
 
-  walkEvents.done(self, renderStack);
+  walkEvents.done && walkEvents.done(self, renderStack);
   this.readyRender = null;
 };
 
@@ -319,7 +320,7 @@ Controller.prototype.runTuples = function (ioI, tuples) {
 };
 
 Controller.prototype.getValue = function (str, data) {
-  var arr = Array.isArray(str) ? str : str.match(/[\w-]+/g);
+  var arr = util.isArray(str) ? str : str.match(/[\w-]+/g);
   if (!arr || !arr.length) return void 0;
 
   data = isObject(data) ? data : this.data || void 0;
@@ -420,7 +421,6 @@ Controller.prototype.handleMoveArgs = function (moves, one, data, isRepeat) {
 
 Controller.prototype.parseMoves = function (str, data, isRepeat) {
   var moves = [], one;
-
   while ((one = rarg.exec(str))) {
     this.handleMoveArgs(moves, one, data, isRepeat);
   }

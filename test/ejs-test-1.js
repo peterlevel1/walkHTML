@@ -12,7 +12,7 @@ getContent('./ejs-test-1.html', function (err, str) {
 	// console.log(str2);
 	console.time('ejs');
 	var i = -1;
-	var len = 1000;
+	var len = 1;
 	var str2;
 	while (++i < len) {
 		str2 = ejs.render(str, {
